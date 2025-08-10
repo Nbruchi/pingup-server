@@ -2,6 +2,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
+import { serve } from "inngest/express";
 import connectDB from "./configs/db.js";
 import { functions, inngest } from "./configs/inngest.js";
 
