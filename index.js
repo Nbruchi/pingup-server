@@ -1,12 +1,12 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
 import cors from "cors";
+import "dotenv/config";
 import { serve } from "inngest/express";
 import connectDB from "./configs/db.js";
+import { clerkMiddleware } from "@clerk/express";
+import userRouter from "./routes/userRoutes.js";
 import { functions, inngest } from "./configs/inngest.js";
-
-dotenv.config();
 
 const app = express();
 
@@ -24,7 +24,11 @@ app.use(
 );
 
 app.get("/", (req, res) => res.send("Hello from server"));
+
+app.use("/api/users", userRouter);
+
 app.use("/api/inngest", serve({ client: inngest, functions }));
+app.use(clerkMiddleware());
 
 const port = process.env.PORT;
 
