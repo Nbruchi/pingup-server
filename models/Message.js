@@ -1,0 +1,17 @@
+import { Schema, model } from "mongoose";
+
+const messageSchema = new Schema(
+    {
+        from_user_id: { type: String, ref: "User", required: true },
+        to_user_id: { type: String, ref: "User", required: true },
+        text: { type: String },
+        message_type: { type: String, enum: ["text", "image"] },
+        media_url: { type: String },
+        seen: { type: Boolean, default: false },
+    },
+    { timestamps: true, minimize: false }
+);
+
+const Message = model("Message", messageSchema);
+
+export default Message;
